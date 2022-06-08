@@ -97,25 +97,34 @@ Confusion Matrix Logistic Regression
 
 Penjelasan lebih lanjut:
 
-- True Positif (TP) : kasus dimana transaksi diprediksi fraud (1.0) dan data sebenarnya fraud (1.0) -> 16659
-- True Negatif (TN) : kasus dimana transaksi diprediksi tidak fraud (0.0) data sebenarnya tidak fraud (0.0) -> 170250
-- False Positif (FP) : kasus dimana transaksi diprediksi fraud (1.0) namun data sebenarnya tidak fraud (0.0) -> 12307
-- False Negatif (FN) : kasus dimana transaksi diprediksi tidak fraud (0.0) data sebenarnya fraud (1.0) -> 784
+- True Positif (TP) : kasus dimana transaksi diprediksi fraud (1.0) dan data sebenarnya fraud (1.0) -> 16667
+- True Negatif (TN) : kasus dimana transaksi diprediksi tidak fraud (0.0) data sebenarnya tidak fraud (0.0) -> 170089
+- False Positif (FP) : kasus dimana transaksi diprediksi fraud (1.0) namun data sebenarnya tidak fraud (0.0) -> 12468
+- False Negatif (FN) : kasus dimana transaksi diprediksi tidak fraud (0.0) data sebenarnya fraud (1.0) -> 776
 
 Pengukuran Performa:
 
 - Akurasi = (TP + TN) / (TP+FP+FN+TN)
 
-  Akurasi = (16659+170250) / (16659+170250+12307+784) = 0.934
+  Akurasi = (16667 + 170089) / (16667 + 170089 + 12468 + 776) = 0.93
 
 - Presisi = (TP) / (TP+FP)
 
-  Presisi pada kelas 1 = (16659) / 16659+12307) = 0.575
+  Presisi pada kelas 1 = (16667) / 16667 + 12468) = 0.57
 
-  Presisi pada kelas 0 = (170250) / (170250+784) = 0.995
+  Presisi pada kelas 0 = (170089) / (170089 + 776) = 0.995
 
 - Recall = (TP) / (TP + FN)
+
+  Recall pada kelas 1 = (16667) / (16667 + 776) = 0.9555
+
+  Recall pada kelas 0 = (170089) / (170089 + 12468) = 0.9317
+
 - F1 Score = 2 * (Recall*Presisi) / (Recall+Presisi)
+
+  F1 Score pada kelas 1 = (0.9555 * 0.57) / (0.9555 + 0.57) = 0.72
+
+  F1 Score pada kelas 0 = (0.9317 * 0.995) / (0.9317 * 0.995) = 0.96
 
 Sesuai perhitungan yang telah dilakukan diatas, hasilnya kurang lebih sama dengan classification report dibawah ini.
 
