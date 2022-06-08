@@ -1,102 +1,124 @@
-# Fraud Detection - Nathanael Victor Darenoh
+# Credit Card Fraud Detection - Nathanael Victor Darenoh
 
 ## Domain Proyek
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Pembayaran digital terus berkembang, begitu juga kejahatan cyber yang kerap mengikuti. Penipuan yang berhubungan dengan keuangan (Financial Fraud) merupakan ancaman yang terus berkembang dan berbahaya. Ketergantungan pada teknologi dan dunia digital telah membuat meningkatnya penggunaan transaksi dengan kartu kredit.Sehingga kartu kredit menjadi salah satu metode pembayaran yang paling umum baik saat bertransaksi secara online maupun offline sekarang ini. Namun hal tersebut jugalah yang membuat tingkat penipuan kartu kredit ini juga kian meningkat. Oleh sebab itu, banyak lembaga atau perusahaan mulai memfokuskan perhatiannya pada metodologi komputasi terkini untuk menangani masalah penipuan kartu kredit ini. Dengan membuat deteksi penipuan kartu kredit menggunakan metode machine learning, harapannnya dapat mengurangi terjadinya penipuan dengan kartu kredit ini.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-
-  Format Referensi: [Judul Referensi](https://scholar.google.com/)
+Referensi: [Credit card fraud detection using machine learning techniques: A comparative analysis](https://ieeexplore.ieee.org/abstract/document/8123782)
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
-
 ### Problem Statements
 
-Menjelaskan pernyataan masalah latar belakang:
-
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+- Penipuan kartu kredit di tengah perkembangan pembayaran digital yang sedang marak terjadi
+- Melakukan perbandingan performa beberapa algoritma klasifikasi untuk menyelesaikan masalah pada data penipuan kartu kredit dengan distribusi miring
 
 ### Goals
 
 Menjelaskan tujuan dari pernyataan masalah:
 
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+- Membuat deteksi penipuan kartu kredit guna mengurangi kemungkinan terjadinya penipuan kedepannya
+- Mendapatkan algoritma klasifikasi yang paling tepat dan efisien untuk menyelesaikan permasalahan penipuan kartu kredit
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+### Solution statements
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut:
-
-  ### Solution statements
-
-  - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-  - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+- Mengajukan dua algoritma yaitu Naive Bayes dan Logistic Regression, kemudian melakukan perbandingan untuk mencapai model yang diinginkan dan sesuai dengan kebutuhan
+- Untuk evaluasi model, model akan diuji dan diukur dengan metrik evaluasi akurasi, precision, recall dan F1 score dengan bantuan library sklearn.
 
 ## Data Understanding
 
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
-
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
+Data penipuan kartu kredit ini saya ambil dari situs kaggle. Untuk tautannya dapat diakses di [Credit Card Fraud](https://www.kaggle.com/datasets/dhanushnarayananr/credit-card-fraud/metadata). Selanjutnya, adapun penjelasan fitur sebagai berikut:
 
 ### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
 
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+- distance_from_home : mepresentasikan jarak dari rumah ke tempat dimana transaksi dilakukan (0.004874 - 10632.723672)
+- distance_from_last_transaction : mempresentasikan jarak dari tempat terakhir dilakukannya transaksi (0.000118 - 11851.104565)
+- ratio_to_median_purchase_price : mempresentasikan rasio transaksi dengan median harga beli (0.004399 - 267.802942)
+- repeat_retailer : apakah transaksi terjadi dari retail yang sama (0: tidak, 1: iya)
+- used_chip : apakah transaksi melalui chip kartu kredit (0: tidak, 1: iya)
+- used_pin_number : apakah transaksi tersebut menggunakan nomor pin (0: tidak, 1: iya)
+- online_order : apakah transaksi tersebut merupakan pesanan online (0: tidak, 1: iya)
+- fraud : apakah transaksi tersebut termasuk penipuan (fraud) (0: tidak, 1: iya)
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+### Exploratory Data Analysis
 
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+#### Menangani Missing Values
+
+Pada data tersebut, saya melakukan pengecekan nilai duplikasi, dan nilai null. Saya juga melakukan pengecekan nilai yang anomali pada data jenis boolean dan hasilnya aman atau sudah bersih. Namun, saya menemukan outlier atau anomali data pada data jenis numerikal kontinyu (distance_from_home, distance_from_last_transaction dan ratio_to_median_purchase_price). Disini saya tidak langsung menghilangkan outlier tersebut dikarenakan terjadi imbalance data pada fitur target yaitu fraud, sehingga apabila saya menghilangkan outlier maka data kelas minoritas fitur fraud akan terhapus semua.
+
+#### Univariate Analysis
+
+Dengan teknik univariate EDA, saya mendapatkan beberapa informasi, antara lain:
+
+- Distribusi data numerikal kontinyu (distance_from_home, distance_from_last_transaction dan ratio_to_median_purchase_price) miring ke kanan atau right-skewed. Hal ini akan berimplikasi pada model sehingga lebih baik dilakukan standarisasi nantinya.
+- Distribusi data target fraud tidak seimbang (imbalance data) sehingga ada baiknya dilakukan undersampling. Menurut laman yang saya baca di [Imbalanced Data](https://developers.google.com/machine-learning/data-prep/construct/sampling-splitting/imbalanced-data), derajat ketidakseimbangan kelas minoritasnya pada dataset saya berada pada "moderate" sehingga saya memutuskan untuk melakukan undersampling.
+
+#### Undersampling
+
+Saya akan melakukan "Random Under Sampling" dengan menghilangkan data pada kelas mayoritasnya sehingga distribusi datanya bisa lebih seimbang (Saya mempelajari beberapa teknik ini dari [Dealing with Imbalanced Datasets](https://www.kaggle.com/code/janiobachmann/credit-fraud-dealing-with-imbalanced-datasets/notebook#Test-Data-with-Logistic-Regression:)). Sebelum melakukan undersampling, saya memisahkan dengan dataset aslinya terlebih dahulu. Hal ini dilakukan karena nantinya pada tahap evaluasi model, saya akan menguji model dengan dataset aslinya bukan dataset yang dibuat dengan teknik undersampling. Tujuannya untuk menyesuaikan model dengan kerangka dataset sebelum dilakukan undersample atau oversample dan dapat mendeteksi pola lebih baik pada set pengujian dataset asli.
+
+Setelah melakukan undersampling, distribusi data target fraud sudah seimbang, kemudian barulah saya melakukan pembersihan data lebih lanjut dengan menghilangkan outlier. Untuk proses menghilangkan outlier, saya hanya menghilangkan beberapa data dari kuantil terakhir. Hal ini dikarenakan data dari kuantil terakhir tersebut memiliki nilai yang sangat jauh dibanding kumpulan data lainnya.
+
+#### Multivariate Analysis
+
+Dengan teknik multivariate EDA, saya mendapatkan informasi bahwa fitur repeat_retailer memiliki korelasi sangat rendah dengan fitur target yaitu fraud. Sehingga, fitur repeat_retailer akan saya drop.
 
 ## Data Preparation
 
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Pada bagian ini, saya melakukan dua tahap persiapan data, yaitu:
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+1. Pembagian dataset dengan fungsi train_test_split
 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+Membagi dataset menjadi data latih dan data uji dengan proporsi pembagian 80:20. Tujuannya adalah agar tidak mengotori data uji dengan informasi yang didapat dari data latih. Namun disini terdapat sedikit perbedaan. Untuk data ujinya, saya akan menggunakan data uji dari dataset aslinya yaitu dataset sebelum dilakukan undersampling ataupun oversampling.
+
+2. Standarisasi
+
+Saya melakukan standarisasi pada fitur numerik kontinyu (distance_from_home, distance_from_last_transaction dan ratio_to_median_purchase_price) menggunakan teknik MinMaxScaler dari library sklearn. MinMaxScaler melakukan proses standarisasi fitur dengan mengubah nilai fitur ke rentang tertentu (misalnya diantara nol dan satu).
 
 ## Modeling
 
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Pada bagian ini, saya mengembangkan model machine learning dengan dua algoritma, yaitu Naive Bayes dan Logistic Regression. Saya menggunakan dua algoritma tersebut tanpa melakukan improvement apapun. Berikut penjelasan dan hasil lebih lanjut tentang algoritma yang digunakan:
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+1. Naive Bayes
 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+Kelebihan utama penggunanaan Naive Bayes dalam klasifikasi adalah pengklasifikasiannya bisa dipersonalisasi, yaitu disesuaikan dengan kebutuhan. Sedangkan kelemahannya adalah keberhasilannya sangat bergantung pada pengetahuan awal, sehingga semakin banyak celah yang bisa mengurangi efektivitasnya.
+
+2. Logistic Regression (Model Terbaik)
+
+Kelemahan dari Logistic Regression adalah rentan terhadap underfitting pada dataset yang kelasnya tidak seimbang. Namun kelemahannya ini cukup teratasi sehingga sebagai hasilnya dapat dilihat bahwa algoritma ini telah berhasil membuat model yang terbaik.
 
 ## Evaluation
 
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+Pada bagian evaluasi ini, saya menggunakan metrik akurasi, precision, recall dan F1 score dengan bantuan library sklearn. Saya juga menampilkan confusion matrix untuk mengetahui darimana hasil metrik akurasi precision recall dan F1 score didapatkan. Pada tahap modeling, didapatkan hasil bahwa algoritma Logistic Regression adalah model yang paling cocok dalam menyelesaikan permasalahan ini. Oleh sebab itu, saya akan membahas lebih lanjut hasil metrik evaluasi pada algortima Logistic Regression.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
+Confusion Matrix Logistic Regression
 
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+![Confusion Matrix Logistic Regression](/assets/images/cf_lr.png)
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Penjelasan lebih lanjut:
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+- True Positif (TP) : kasus dimana transaksi diprediksi fraud (1.0) dan data sebenarnya fraud (1.0) -> 16659
+- True Negatif (TN) : kasus dimana transaksi diprediksi tidak fraud (0.0) data sebenarnya tidak fraud (0.0) -> 170250
+- False Positif (FP) : kasus dimana transaksi diprediksi fraud (1.0) namun data sebenarnya tidak fraud (0.0) -> 12307
+- False Negatif (FN) : kasus dimana transaksi diprediksi tidak fraud (0.0) data sebenarnya fraud (1.0) -> 784
 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Pengukuran Performa:
 
-**---Ini adalah bagian akhir laporan---**
+- Akurasi = (TP + TN) / (TP+FP+FN+TN)
 
-_Catatan:_
+  Akurasi = (16659+170250) / (16659+170250+12307+784) = 0.934
 
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+- Presisi = (TP) / (TP+FP)
+
+  Presisi pada kelas 1 = (16659) / 16659+12307) = 0.575
+
+  Presisi pada kelas 0 = (170250) / (170250+784) = 0.995
+
+- Recall = (TP) / (TP + FN)
+- F1 Score = 2 * (Recall*Presisi) / (Recall+Presisi)
+
+Sesuai perhitungan yang telah dilakukan diatas, hasilnya kurang lebih sama dengan classification report dibawah ini.
+
+Classification Report Logistic Regression
+
+![Classification Report Logistic Regression](/assets/images/cr_lr.png)
