@@ -18,7 +18,7 @@ Referensi: [Credit card fraud detection using machine learning techniques: A com
 Menjelaskan tujuan dari pernyataan masalah:
 
 - Membuat deteksi penipuan kartu kredit guna mengurangi kemungkinan terjadinya penipuan kedepannya
-- Mengetahui algoritma yang baik dan efisien untuk menyelesaikan masalah klasifikasi biner penipuan kartu kredit
+- Mengetahui algoritma yang paling akurat dan efisien untuk menyelesaikan masalah klasifikasi biner penipuan kartu kredit
 
 ### Solution statements
 
@@ -50,7 +50,7 @@ Pada data tersebut, saya melakukan pengecekan nilai duplikasi, dan nilai null. S
 
 Disini saya menampilkan histogram untuk mengetahui distribusi data di setiap fitur.
 
-![Histogram](assets/images/hist.png)
+![Histogram](https://github.com/nanan4th/fraud-detection/blob/main/assets/images/hist.png?raw=true)
 
 Dari histogram tersebut, saya mendapatkan beberapa informasi, antara lain:
 
@@ -83,7 +83,7 @@ Setelah melakukan undersampling, distribusi data target fraud sudah seimbang, ke
 
 Disini saya menampilkan heatmap untuk mengetahui korelasi dari setiap fitur.
 
-![Heatmap](assets/images/correlation.png)
+![Heatmap](https://github.com/nanan4th/fraud-detection/blob/main/assets/images/correlation.png?raw=true)
 
 Dari heatmap diatas, saya mendapatkan informasi bahwa fitur repeat_retailer memiliki korelasi sangat rendah dengan fitur target yaitu fraud. Sehingga, fitur repeat_retailer akan saya drop.
 
@@ -100,7 +100,7 @@ Data cleaning melibatkan perbaikan masalah sistematis atau kesalahan dalam data 
 - outlier, hasilnya saya menemukan outlier pada fitur distance_from_home, distance_from_last_transaction, dan ratio_to_median_purchase_price.
 
 Berikut outlier yang saya temukan dari fitur-fitur tersebut.
-![Heatmap](assets/images/boxplot.png)
+![Heatmap](https://github.com/nanan4th/fraud-detection/blob/main/assets/images/boxplot.png?raw=true)
 
 Dari boxplot tersebut, dapat diperoleh informasi bahwa terdapat beberapa nilai yang terlalu jauh dari distribusi nilai normalnya. Untuk itu, saya hanya menghilangkan nilai-nilai terakhir (dari quantile terakhir) sehingga distribusi nilainya dapat menjadi lebih baik dan tidak menghilangkan terlalu banyak data. Oleh sebab itu, saya akan menggunakan metode iqr namun menggunakan batas bawah mulai quantile=0 dan batas atas pada quantile=0.99.
 
@@ -145,7 +145,12 @@ Kekurangan:
 
 2. Logistic Regression Classifier (Model Terbaik)
 
-Logistic Regression Classifier adalah algoritma yang menggunakan pendekatan fungsional untuk memperkirakan probabilitas output biner berdasarkan satu atau lebih variabel diskrit maupun kontinu.
+Logistic Regression Classifier adalah algoritma yang menggunakan pendekatan fungsional untuk memperkirakan probabilitas output biner berdasarkan satu atau lebih variabel diskrit maupun kontinu. Algoritma ini memiliki fungsi yang dibentuk dengan menyamakan nilai y pada fungsi sigmoid. Tujuannya untuk mempresentasikan data-data yang dimiliki ke dalam bentuk fungsi sigmoid yang digambarkan sebagai berikut:
+
+- $$\sigma(x)=\frac{1}{(1+l^{-x})}$$
+- $$x = w_{0}z_{0}+w_{1}z_{1}+...+w_{n}z_{n}$$
+
+Vektor z dari persamaan diatas diartikan sebagai input data dan w adalah sebuah koefisien terbaik. Vektor z dan w akan dikalikan pada setiap elemen dan ditambahkan. Nantinya jika nilai sigmoid lebih dari 0.5 maka akan dianggap 1, jika tidak maka 0.
 
 Kelemahan dari Logistic Regression adalah rentan terhadap underfitting pada dataset yang kelasnya tidak seimbang. Namun kelemahannya ini cukup teratasi sehingga sebagai hasilnya dapat dilihat bahwa algoritma ini telah berhasil membuat model yang terbaik.
 
