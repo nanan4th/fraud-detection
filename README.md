@@ -120,13 +120,13 @@ Pada bagian ini, saya mengembangkan model machine learning dengan dua algoritma,
 
 Naïve Bayes Classifier merupakan sebuah metode klasifikasi yang didasarkan pada teorema Bayes yang memilih keputusan berdasarkan probabilitas tertinggi. Teorema Bayes menggunakan metode probabilitas dan statistik untuk memprediksi peluang di masa depan (nilai yang tidak diketahui) berdasarkan pengalaman di masa sebelumnya (nilai yang diketahui). Teknik ini memiliki ciri utama adalah asumsi yg sangat kuat akan independensi dari masing-masing kondisi (fitur-fitur pada data). Klasifikasi Naive Bayes didasarkan pada probabilitas bersyarat seperti dibawah ini:
 
-- $$P(c_{i} | f_{k}) = \frac{P(f_{k} | c_{i}) * P(c_{i})}{P(f_{k})}$$
-- $$P(f_{k} | c_{i}) = \prod^n_{i = 1}{P(f_{k} | c_{i}) k = 1,..,n;i=1,2}$$
+$$P(c_{i} | f_{k}) = \frac{P(f_{k} | c_{i}) * P(c_{i})}{P(f_{k})}$$
+$$P(f_{k} | c_{i}) = \prod^n_{i = 1}{P(f_{k} | c_{i}) k = 1,..,n;i=1,2}$$
 
 dimana n mempresentasikan jumlah fitur, $P(c_{i} | f_{k})$ adalah probabilitas nilai fitur $f_{k}$ berada di kelas suatu class ($c_{i}$), $P(f_{k} | c_{i})$ adalah probabilitas menghasilkan nilai fitur $f_{k}$ yang diberikan oleh suatu class ($c_{i}$). $P(c_{i})$ dan $P(f_{k})$ adalah peluang munculnya kelas ci dan probabilitas nilai fitur fk yang terjadi pada tiap fitur. Kemudian classifier akan melakukan klasifikasi biner berdasarkan aturan bayesian ini:
 
-- $$If P(c_{1} | f_{k}) > P(c_{2} | f_{k}) \text{maka diklasifikasikan} C_{1}$$
-- $$If P(c_{2} | f_{k}) > P(c_{1} | f_{k}) \text{maka diklasifikasikan} C_{2}$$
+$$If P(c_{1} | f_{k}) > P(c_{2} | f_{k}) \text{maka diklasifikasikan} C_{1}$$
+$$If P(c_{2} | f_{k}) > P(c_{1} | f_{k}) \text{maka diklasifikasikan} C_{2}$$
 
 dimana $C_{1}$ adalah kelas 0 atau bukan penipuan (transaksi tidak fraud) sedangkan $C_{2}$ adalah kelas 1 atau penipuan (transaksi fraud).
 
@@ -147,8 +147,8 @@ Kekurangan:
 
 Logistic Regression Classifier adalah algoritma yang menggunakan pendekatan fungsional untuk memperkirakan probabilitas output biner berdasarkan satu atau lebih variabel diskrit maupun kontinu. Algoritma ini memiliki fungsi yang dibentuk dengan menyamakan nilai y pada fungsi sigmoid. Tujuannya untuk mempresentasikan data-data yang dimiliki ke dalam bentuk fungsi sigmoid yang digambarkan sebagai berikut:
 
-- $$\sigma(x)=\frac{1}{(1+l^{-x})}$$
-- $$x = w_{0}z_{0}+w_{1}z_{1}+...+w_{n}z_{n}$$
+$$\sigma(x)=\frac{1}{(1+l^{-x})}$$
+$$x = w_{0}z_{0}+w_{1}z_{1}+...+w_{n}z_{n}$$
 
 Vektor z dari persamaan diatas diartikan sebagai input data dan w adalah sebuah koefisien terbaik. Vektor z dan w akan dikalikan pada setiap elemen dan ditambahkan. Nantinya jika nilai sigmoid lebih dari 0.5 maka akan dianggap 1, jika tidak maka 0.
 
@@ -194,25 +194,25 @@ Perhitungan performa berdasarkan akurasi, presisi, recall dan F1-score:
 
 - Akurasi
 
-  $$Akurasi = \frac{16657 + 170203}{16657 + 170203 + 12354 + 786} = 0.93$$
+  $Akurasi = \frac{16657 + 170203}{16657 + 170203 + 12354 + 786} = 0.93$
 
 - Presisi
 
-  $$\text{Presisi pada kelas 1} = \frac{16657}{16657 + 12354} = 0.57$$
+  $\text{Presisi pada kelas 1} = \frac{16657}{16657 + 12354} = 0.57$
 
-  $$\text{Presisi pada kelas 0} = \frac{170203}{170203 + 786} = 0.995$$
+  $\text{Presisi pada kelas 0} = \frac{170203}{170203 + 786} = 0.995$
 
 - Recall
 
-  $$\text{Recall pada kelas 1} = \frac{16657}{16657 + 786} = 0.95$$
+  $\text{Recall pada kelas 1} = \frac{16657}{16657 + 786} = 0.95$
 
-  $$\text{Recall pada kelas 0} = \frac{170203}{170203 + 12354} = 0.93$$
+  $\text{Recall pada kelas 0} = \frac{170203}{170203 + 12354} = 0.93$
 
 - F1 Score
 
-  $$\text{F1 Score pada kelas 1} = \frac{0.9555 * 0.57}{0.9555 + 0.57} = 0.72$$
+  $\text{F1 Score pada kelas 1} = \frac{0.9555 * 0.57}{0.9555 + 0.57} = 0.72$
 
-  $$\text{F1 Score pada kelas 0} = \frac{0.9317 * 0.995}{0.9317 + 0.995} = 0.96$$
+  $\text{F1 Score pada kelas 0} = \frac{0.9317 * 0.995}{0.9317 + 0.995} = 0.96$
 
 Sesuai perhitungan yang telah dilakukan diatas, hasilnya kurang lebih sama dengan classification report dibawah ini.
 
