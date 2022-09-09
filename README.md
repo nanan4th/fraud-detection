@@ -1,4 +1,4 @@
-# Credit Card Fraud Detection - Nathanael Victor Darenoh
+# Credit Card Fraud Detection
 
 ## Domain Proyek
 
